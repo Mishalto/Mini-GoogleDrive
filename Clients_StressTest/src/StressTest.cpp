@@ -4,7 +4,8 @@
 #include <iostream>
 
 StressTest::StressTest()
-    : server_(boost::asio::ip::make_address_v4(Server::address), Server::port),
+    : io_context_(),
+      server_(boost::asio::ip::make_address_v4(Server::address), Server::port),
       connection_manager_() {
     // Reads and sets the maximum number of connections from user input.
     connection_manager_.init_limit();
@@ -13,6 +14,8 @@ StressTest::StressTest()
 void StressTest::connect() {
     auto socket = std::make_shared<tcp::socket>(io_context_);
     socket->async_connect(server_, [socket, this](const boost::system::error_code& err) {
+        // On success, the connection count increments
+        // On failure, the failed count increases
         if (!err) {
             connection_manager_.add_success();
         } else {
@@ -23,7 +26,7 @@ void StressTest::connect() {
         // There's a risk of inconsistency due to sequential calls
         // Consider moving io_context_.stop() to the destructor.
         const size_t total_attempts = connection_manager_.successful_attempts()
-                                + connection_manager_.failed_attempts();
+                                      + connection_manager_.failed_attempts();
         if (total_attempts >= connection_manager_.get_limit()) {
             io_context_.stop();
         }
@@ -58,4 +61,3 @@ void StressTest::start_test() {
     // Output connection statistics.
     connection_manager_.info();
 }
-

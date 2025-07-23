@@ -13,8 +13,9 @@ private:
     using tcp = boost::asio::ip::tcp;
 
     boost::asio::io_context io_context_;
-    // Endpoint changes in ServerData
-    // Default - ip: 127.0.0.1, port: 12345,
+
+    // ServerData endpoint changes:
+    // Default: 127.0.0.1:12345 (configurable in ServerData.h)
     tcp::endpoint server_;
 
     // Tracks connection attempts and results.
@@ -22,7 +23,10 @@ private:
 
     // Initiates a single asynchronous connection as part of the stress test.
     void connect();
+
 public:
+    // The constructor initializes class fields by standard—each one explicitly
+    // Then, it requests the planned connection count.
     StressTest();
 
     // Starts the stress test: creates all connections and runs the I/O event loop using 4 threads.
