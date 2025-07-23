@@ -7,7 +7,7 @@ StressTest::StressTest()
     : server_(boost::asio::ip::make_address_v4(Server::address), Server::port),
       connection_manager_() {
     // Reads and sets the maximum number of connections from user input.
-    connection_manager_.init_max_connections();
+    connection_manager_.init_limit();
 }
 
 void StressTest::connect() {

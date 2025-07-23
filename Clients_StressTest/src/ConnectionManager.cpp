@@ -3,7 +3,7 @@
 #include <mutex>
 
 ConnectionManager::ConnectionManager()
-    : limit_(),
+    : limit_(0),
       successful_attempts_(),
       failed_attempts_() {
 }
@@ -36,7 +36,9 @@ void ConnectionManager::info() const {
             << successful_attempts_ << " / " << failed_attempts_ << std::endl;
 }
 
-void ConnectionManager::init_max_connections() {
-    std::cout << "Number of connections: ";
-    std::cin >> limit_;
+void ConnectionManager::init_limit() {
+    if (!limit_) {
+        std::cout << "Number of connections: ";
+        std::cin >> limit_;
+    }
 }

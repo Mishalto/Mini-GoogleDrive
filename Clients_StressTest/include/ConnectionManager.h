@@ -21,7 +21,7 @@ public:
     [[nodiscard]] size_t get_limit() const;
 
     // Initializes the maximum number of connection from user input
-    void init_max_connections();
+    void init_limit();
 
     // Increments the count of successful connections (thread-safe)
     void add_success();
