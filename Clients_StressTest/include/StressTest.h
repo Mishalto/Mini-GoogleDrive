@@ -7,6 +7,7 @@
 // simulating up to 50,000 concurrent connections.
 // It uses the ConnectionManager class to manage connection attempts and track statistics,
 // including counts of successful and failed connections.
+
 class StressTest {
 private:
     using tcp = boost::asio::ip::tcp;
