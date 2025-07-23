@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+Client/.idea/
+
+Client/vcpkg.json
+
+Clients_StressTest/.idea/
+
+Server/.idea/
+
+Clients_StressTest/vcpkg.json
+
+Server/vcpkg.json
