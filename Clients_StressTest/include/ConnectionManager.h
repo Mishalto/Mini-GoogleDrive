@@ -1,16 +1,14 @@
 #pragma once
 
 #include <mutex>
-#include <stddef.h>
+#include <atomic>
 
 // Class responsible for managing connection limits and tracking statistics
 class ConnectionManager {
 private:
-    size_t limit_;
-    size_t successful_attempts_;
-    size_t failed_attempts_;
-
-    std::mutex sync_mutex;
+    std::atomic<size_t> limit_;
+    std::atomic<size_t> successful_attempts_;
+    std::atomic<size_t> failed_attempts_;
 
 public:
     ConnectionManager();

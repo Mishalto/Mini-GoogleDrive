@@ -4,7 +4,7 @@
 #include <ConnectionManager.h>
 
 // StressTest is a class designed to perform high-load testing of a server,
-// simulating up to 50,000 concurrent connections.
+// simulating up to 28 000 concurrent connections.
 // It uses the ConnectionManager class to manage connection attempts and track statistics,
 // including counts of successful and failed connections.
 
@@ -13,7 +13,6 @@ private:
     using tcp = boost::asio::ip::tcp;
 
     boost::asio::io_context io_context_;
-
     // Endpoint changes in ServerData
     // Default - ip: 127.0.0.1, port: 12345,
     tcp::endpoint server_;

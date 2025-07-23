@@ -9,12 +9,10 @@ ConnectionManager::ConnectionManager()
 }
 
 void ConnectionManager::add_failed() {
-    std::lock_guard<std::mutex> locker(sync_mutex);
     ++failed_attempts_;
 }
 
 void ConnectionManager::add_success() {
-    std::lock_guard<std::mutex> locker(sync_mutex);
     ++successful_attempts_;
 }
 
@@ -38,7 +36,9 @@ void ConnectionManager::info() const {
 
 void ConnectionManager::init_limit() {
     if (!limit_) {
+        size_t limit;
         std::cout << "Number of connections: ";
-        std::cin >> limit_;
+        std::cin >> limit;
+        limit_.store(limit);
     }
 }

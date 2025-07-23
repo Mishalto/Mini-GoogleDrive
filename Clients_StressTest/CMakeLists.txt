@@ -6,10 +6,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=thread -g -O1")
 
 add_executable(Clients_StressTest main.cpp
         src/StressTest.cpp
-        include/StressTest.h
-        include/ServerData.h
         src/ConnectionManager.cpp
-        include/ConnectionManager.h
 )
 
 find_package(boost_asio CONFIG REQUIRED)

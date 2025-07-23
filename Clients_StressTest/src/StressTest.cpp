@@ -20,6 +20,8 @@ void StressTest::connect() {
         }
 
         // Stop the loop when total attempts reach the planned connection count.
+        // There's a risk of inconsistency due to sequential calls
+        // Consider moving io_context_.stop() to the destructor.
         const size_t total_attempts = connection_manager_.successful_attempts()
                                 + connection_manager_.failed_attempts();
         if (total_attempts >= connection_manager_.get_limit()) {
