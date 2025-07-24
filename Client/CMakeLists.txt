@@ -8,7 +8,7 @@ add_executable(Client main.cpp
         src/IoThread.cpp
         src/Logger.cpp
         src/Session.cpp
-        include/Session.h)
+)
 
 find_package(boost_asio CONFIG REQUIRED)
 

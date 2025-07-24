@@ -21,7 +21,7 @@ Client::~Client() {
 
 void Client::connect() {
     auto socket = std::make_shared<tcp::socket>(io_context_);
-    socket->async_connect(ServerConfig::Endpoint::endpoint, [socket](const boost::system::error_code& err) {
+    socket->async_connect(ServerConfig::Endpoint::endpoint, [socket](const auto& err) {
         if (!err) {
             Logger::log("Connected.");
             const auto session = std::make_shared<Session>(socket);

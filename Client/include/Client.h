@@ -12,8 +12,10 @@ private:
     IoThread io_thread_;
 
     void connect();
+
 public:
     explicit Client();
+
     ~Client();
 
     void start();
