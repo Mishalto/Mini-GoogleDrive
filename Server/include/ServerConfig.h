@@ -9,7 +9,7 @@ private:
     tcp protocol;
 
 public:
-    ServerConfig();
+    explicit ServerConfig();
 
     [[nodiscard]] int get_port() const;
 

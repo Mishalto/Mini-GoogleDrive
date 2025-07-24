@@ -17,7 +17,7 @@ private:
     ServerStatus server_status_;
 
 public:
-    Server();
+    explicit Server();
     ~Server();
 
     void start();

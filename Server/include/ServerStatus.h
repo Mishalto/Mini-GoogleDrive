@@ -6,7 +6,7 @@ class ServerStatus {
     std::atomic<bool> is_running_;
 
 public:
-    ServerStatus() = default;
+    explicit ServerStatus() = default;
 
     void start_server();
 
