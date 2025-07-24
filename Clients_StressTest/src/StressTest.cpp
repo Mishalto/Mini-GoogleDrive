@@ -15,7 +15,7 @@ void StressTest::connect() {
     auto socket = std::make_shared<tcp::socket>(io_context_);
     socket->async_connect(server_, [socket, this](const boost::system::error_code& err) {
         // On success, the connection count increments
-        // On failure, the failed count increases
+        // On failure, the failed count increments
         if (!err) {
             connection_manager_.add_success();
         } else {
@@ -43,11 +43,11 @@ void StressTest::start_test() {
     }
 
     std::vector<std::thread> pool;
-    pool.reserve(4);
+    pool.reserve(ThreadPool::thread_count);
 
     // Create a thread pool of 4 threads to run the io_context event loop.
-    // Maybe later need fix magic number
-    for (size_t i = 0; i < 4; ++i) {
+    // thread_count can be change in ServerData.h/ThreadPool
+    for (size_t i = 0; i < ThreadPool::thread_count; ++i) {
         pool.emplace_back([this]() {
             io_context_.run();
         });
