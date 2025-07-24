@@ -4,10 +4,11 @@
 
 #include <Logger.h>
 
+#include "Session.h"
+
 Client::Client()
     : io_context_(),
-      io_thread_(io_context_),
-      socket_(io_context_) {
+      io_thread_(io_context_) {
     Logger::log("Client initialized.");
     Logger::log("Connect to: ", ServerConfig::ip_addr,
                 ":", std::to_string(ServerConfig::port));
@@ -15,13 +16,16 @@ Client::Client()
 
 Client::~Client() {
     io_thread_.io_stop();
-    Logger::log("Session ended.");
+    Logger::log("Client destructed");
 }
 
 void Client::connect() {
-    socket_.async_connect(ServerConfig::Endpoint::endpoint, [](const boost::system::error_code& err) {
+    auto socket = std::make_shared<tcp::socket>(io_context_);
+    socket->async_connect(ServerConfig::Endpoint::endpoint, [socket](const boost::system::error_code& err) {
         if (!err) {
             Logger::log("Connected.");
+            const auto session = std::make_shared<Session>(socket);
+            session->start();
         } else {
             Logger::error(err.message());
         }
@@ -29,7 +33,6 @@ void Client::connect() {
 }
 
 void Client::start() {
-    Logger::log("Session started.");
     connect();
     io_thread_.io_run();
 }

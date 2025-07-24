@@ -10,11 +10,10 @@ private:
 
     boost::asio::io_context io_context_;
     IoThread io_thread_;
-    tcp::socket socket_;
 
     void connect();
 public:
-    Client();
+    explicit Client();
     ~Client();
 
     void start();
